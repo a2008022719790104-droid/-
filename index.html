@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人響應式多媒體網頁成果展</title>
+    <!-- 4. 引用 Chart.js 庫用於繪製統計圖表 -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        /* 基礎全域樣式重設 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: "Verdana", "Microsoft JhengHei", sans-serif;
+            background-color: #f7f9fc;
+            color: #444444;
+            line-height: 1.6;
+        }
+        /* 頁首樣式設計 */
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #ffffff;
+            padding: 35px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 2.2rem; margin-bottom: 8px; }
+        header p { color: #cbd5e1; font-size: 1rem; }
+
+        /* 主體響應式 Flexbox 版面配置 */
+        .main-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 15px;
+            gap: 20px;
+        }
+
+        /* 三欄佈局各自寬度與樣式設定 */
+        .menu-sidebar {
+            flex: 20%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .content-body {
+            flex: 55%;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .right-sidebar {
+            flex: 20%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* 區塊內元件排版 */
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+            font-size: 1.3rem;
+        }
+        p { margin-bottom: 15px; font-size: 0.95rem; color: #64748b; }
+
+        /* 7. 同學超連結按鈕樣式 */
+        .classmate-link {
+            display: block;
+            background-color: #f1f5f9;
+            padding: 12px;
+            margin: 10px 0;
+            color: #334155;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-left: 4px solid #2a5298;
+        }
+        .classmate-link:hover {
+            background-color: #2a5298;
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        /* 3. 多媒體嵌入響應式包裝 */
+        .image-container {
+            width: 100%;
+            margin: 15px 0 25px 0;
+        }
+        .responsive-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-top: 10px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* 4. 圖表容器樣式 */
+        .chart-container {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        /* 頁尾樣式 */
+        footer {
+            background-color: #1e3c72;
+            color: #94a3b8;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* 5. 響應式網頁設計 (RWD) 斷點設定 */
+        @media only screen and (max-width: 992px) {
+            .menu-sidebar, .content-body, .right-sidebar {
+                flex: 100%;
+                margin-right: 0;
+            }
+            header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頁首空間 -->
+    <header>
+        <h1>🚀 我的多媒體前端技術期末專題空間</h1>
+        <p>學號: [請填寫您的學號] | 姓名: [請填寫您的姓名]</p>
+    </header>
+
+    <!-- 三欄式主要容器區塊 -->
+    <div class="main-wrapper">
+        
+        <!-- 左側欄位：7. 三位同學架設的網站超連結選單 -->
+        <aside class="menu-sidebar">
+            <h2>🔗 班級同學連結</h2>
+            <p>點擊下方按鈕可互相串連並瀏覽班上同學的專題網站：</p>
+            <!-- 請將預留網址更換為您同學實際架設完成的公開網址 -->
+            <a href="https://github.io" target="_blank" class="classmate-link">🔗 王大明的網站空間</a>
+            <a href="https://github.io" target="_blank" class="classmate-link">🔗 陳小華的網站空間</a>
+            <a href="https://github.io" target="_blank" class="classmate-link">🔗 李美玲的網站空間</a>
+        </aside>
+
+        <!-- 中間主內容欄位：3. 相簿照片嵌入 與 4. JavaScript 數據圖表 -->
+        <main class="content-body">
+            <h2>📸 靜態影像多媒體紀錄</h2>
+            <p>以下嵌入我最喜愛的日常生活/風景照片（完美支援流動式寬度縮放）：</p>
+            <div class="image-container">
+                <!-- 請將此處圖片連結更換為您的精彩相片檔名或網路圖片網址 -->
+                <img src="https://unsplash.com" alt="精選城市夜景照片" class="responsive-img">
+            </div>
+
+            <h2>📊 JavaScript 動態統計圖表展現</h2>
+            <p>使用 Chart.js 動態繪製與計算的「一週個人精進領域時間分配統計」：</p>
+            <div class="chart-box">
+                <canvas id="mySemesterChart"></canvas>
+            </div>
+        </main>
+
+        <!-- 右側欄位：3. 影音影片內嵌展示 -->
+        <aside class="right-sidebar">
+            <h2>📺 熱門影音多媒體嵌入</h2>
+            <p>嵌入我最喜歡的 YouTube 線上學習影音串流：</p>
+            <div class="video-container">
+                <!-- 可將下方 YouTube ID (dQw4w9WgXcQ) 替換成您最愛影片的 ID -->
+                <iframe src="https://youtube.com" title="YouTube 影片播放器" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <div style="margin-top: 25px;">
+                <h2>📝 關於此響應式系統</h2>
+                <p>本系統使用 HTML5 與 CSS3 Media Queries 技術。當使用行動裝置或拉動瀏覽器寬度小於 992px 時，版面將自動重組為垂直單欄排列。</p>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- 頁尾宣告 -->
+    <footer>
+        <p>© 2026 [您的姓名] 個人版權所有 | 本網站優化結構參考 W3Schools 規範設計</p>
+    </footer>
+
+    <!-- 4. JavaScript 數據處理與圖表渲染邏輯 -->
+    <script>
+        const ctx = document.getElementById('mySemesterChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', /* 採用清晰易讀的直條圖 */
+            data: {
+                labels: ['前端開發 (HTML/CSS)', '後端邏輯 (JS)', '圖表繪製 (Charts)', '伺服器上架 (Git/Server)', '多媒體影音處理'],
+                datasets: [{
+                    label: '每週專案投入時間 (小時)',
+                    data:,
+                    backgroundColor: [
+                        'rgba(30, 60, 114, 0.85)',
+                        'rgba(42, 82, 152, 0.85)',
+                        'rgba(80, 227, 194, 0.85)',
+                        'rgba(245, 166, 35, 0.85)',
+                        'rgba(155, 81, 224, 0.85)'
+                    ],
+                    borderColor: [
+                        '#1e3c72', '#2a5298', '#50E3C2', '#F5A623', '#9B51E0'
+                    ],
+                    borderWidth: 1.5
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '時數 (hr)' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false } /* 隱藏上方單一圖例，維持版面乾淨 */
+                }
+            }
+        });
+    </script>
+</body>
+</html>
